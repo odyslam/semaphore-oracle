@@ -16,5 +16,4 @@ node_modules
 .envrc
 
 # Typescript
-dist/
 yarn-error.log

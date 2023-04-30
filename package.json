@@ -1,6 +1,6 @@
 {
   "name": "zuzalu-oracle",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/odyslam/zuzalu-oracle/issues"
@@ -21,10 +21,10 @@
   ],
   "main": "dist/src/index.js",
   "scripts": {
-    "test": "forge test && yarn types",
     "postinstall": "yarn build",
     "build-contracts": "forge build",
     "build": "yarn build-contracts && yarn generate-types && yarn copy-definitions && yarn clean",
+    "test": "forge test && yarn types",
     "fmt": "forge fmt",
     "coverage": "forge coverage --report lcov",
     "generate-types": "forge inspect ZuzaluOracle abi > ZuzaluOracle.abi && typechain --target=ethers-v6",
