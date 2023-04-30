@@ -17,7 +17,7 @@ The Zuzalu API offers the latest root for every group. A trusted backend cron se
 
 First, make sure you understand how the proof and group system works in Semaphore. 
 
-Check out [their docs]()https://semaphore.appliedzkp.org/docs/guides/proofs!
+Check out [their docs](https://semaphore.appliedzkp.org/docs/guides/proofs)!
 
 ## As an on-chain application
 
