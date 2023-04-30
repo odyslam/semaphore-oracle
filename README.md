@@ -1,10 +1,17 @@
 # Zuzalu Oracle
 
+![zuzalu logo](https://global-uploads.webflow.com/600ff0f8154936050d98ec01/64199fbf9612bf604446d6b6_zuzalu-hero.png)
+
 This is a wrapper contract around the deploy contracts of [Semaphore](https://github.com/semaphore-protocol/semaphore), to be used by [Zuzalu](https://zuzalu.city).
 
 # How 
 
 The Zuzalu API offers the latest root for every group. A trusted backend cron service, named [zuzalu-updater](https://github.com/odyslam/zuzalu-updater), reads that API call and updates the on-chain stored root, so that people can generate proofs and verify them on-chain.
+
+# Deployed Addresses TBD
+
+- [Sepolia]()
+- [Ethereum]()
 
 # Building with Zuzalu Oracle
 
@@ -25,9 +32,8 @@ Check out [their docs]()https://semaphore.appliedzkp.org/docs/guides/proofs!
 ## How to integrate in Solidity
 
 Install
-```
+```Bash
 yarn add zuzalu-oracle
-
 ```
 and then just
 ```Solidity
@@ -40,7 +46,7 @@ You can read the docs for the smart contract in the [the docs](https://odyslam.g
 
 ## How to integrate in Typescript
 
-1. Install the depedency `yarn add zuzalu-oracle`. A `postinstall` script will build the Typescript definitions from the compiled solidity contracts
+1. `yarn add zuzalu-oracle`
 2. Import it as follows. The example is from [zuzalu-updater](https://github.com/odyslam/zuzalu-updater)
 ```Typescript
 import { ZuzaluOracle__factory } from 'zuzalu-oracle';
