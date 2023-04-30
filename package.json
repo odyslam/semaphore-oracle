@@ -28,7 +28,7 @@
     "fmt": "forge fmt",
     "coverage": "forge coverage --report lcov",
     "generate-types": "forge inspect ZuzaluOracle abi > ZuzaluOracle.abi && typechain --target=ethers-v6",
-    "copy-definitions": "cp -R types/ethers-contracts/* dist/src",
+    "copy-definitions": "mkdir -p dist/src && cp -R types/ethers-contracts/* dist/src",
     "clean": "rm ZuzaluOracle.abi && rm -rf types"
 
   },
