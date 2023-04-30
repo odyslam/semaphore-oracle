@@ -2,30 +2,48 @@
   "name": "zuzalu-oracle",
   "version": "0.0.1",
   "license": "MIT",
-  "contributors": [
-    {
+  "bugs": {
+    "url": "https://github.com/odyslam/zuzalu-oracle/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/odyslam/zuzalu-oracle.git"
+  },
+  "author":     {
       "name": "Mark Tyneway",
       "email": "mark.tyneway@gmail.com"
     },
+  "contributors": [
     {
       "name": "Odysseas.eth",
       "email": "odyslam@gmail.com"
     }
   ],
+  "main": "dist/src/index.js",
   "scripts": {
-    "test": "forge test",
-    "prettier": "prettier --write 'src/**/*.sol' 'test/**/*.sol'",
+    "test": "forge test && yarn types",
+    "postinstall": "yarn build",
+    "build-contracts": "forge build",
+    "build": "yarn build-contracts && yarn generate-types && yarn copy-definitions && yarn clean",
+    "fmt": "forge fmt",
     "coverage": "forge coverage --report lcov",
-    "types": "forge inspect ZuzaluOracle abi > ZuzaluOracle.abi && typechain --target=ethers-v5 && rm ZuzaluOracle.abi"
+    "generate-types": "forge inspect ZuzaluOracle abi > ZuzaluOracle.abi && typechain --target=ethers-v6",
+    "copy-definitions": "cp -R types/ethers-contracts/* dist/src",
+    "clean": "rm ZuzaluOracle.abi && rm -rf types"
+
+  },
+  "devDependencies": {
+    "@typechain/ethers-v6": ":^0.3.0",
+    "@types/bn.js": "^5.1.0",
+    "ts-node": "^10.7.0",
+    "typechain": ":^8.1.1",
+    "typescript": "^4.7"
   },
   "dependencies": {
     "@semaphore-protocol/contracts": "^3.7.0",
-    "@types/node": "^18.15.11",
-    "@types/node-fetch": "^2.6.3",
     "ds-test": "https://github.com/dapphub/ds-test#cd98eff28324bfac652e63a239a60632a761790b",
-    "ethers": "^6.3.0",
     "forge-std": "https://github.com/foundry-rs/forge-std#b971f66b8416e3b09f240f6ee7230ad3bdb13c19",
     "solmate": "^6.7.0",
-    "ts-node": "^10.9.1"
+    "ethers": "^6.3.0"
   }
 }
