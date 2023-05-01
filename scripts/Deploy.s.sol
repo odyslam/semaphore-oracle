@@ -12,7 +12,7 @@ contract Deploy is Script{
   address $verifier;
   address $owner;
 
-  constructor() {
+  function _getVerifierOrDeploy() internal {
     if (block.chainid == 5 || block.chainid == 11155111 || block.chainid == 80001 || block.chainid == 10 || block.chainid == 421613){
       $verifier = DEPLOYED_VERIFIER;
       console.log("Verifier is already deployed at address", $verifier);
@@ -21,15 +21,17 @@ contract Deploy is Script{
       console.log("Verifier deployed at address", $verifier);
     }
   }
+
   function run() public {
+    _getVerifierOrDeploy();
     $owner = msg.sender;
-    deployOracle();
+    _deployOracle();
   }
   
   function run(address _verifier) public {
     $owner = msg.sender;
     $verifier = _verifier;
-    deployOracle();
+    _deployOracle();
   }
 
   function _deployVerifier() internal {
@@ -39,7 +41,7 @@ contract Deploy is Script{
     vm.stopBroadcast();
   }
 
-  function deployOracle() internal {
+  function _deployOracle() internal {
     vm.startBroadcast();
     ZuzaluOracle oracle = new ZuzaluOracle{salt: SALT}({
       _owner: $owner,
@@ -49,13 +51,15 @@ contract Deploy is Script{
     console.log("Oracle deployed at address", address(oracle));
   }
 
-  function printAddress(uint256 _chainId, address owner) public {
+  function printAddress(uint256 _chainId) public {
+    $owner = msg.sender;
     vm.chainId(_chainId);
-    bytes memory args = abi.encode(owner, $verifier);
+    _getVerifierOrDeploy();
+    bytes memory args = abi.encode($owner, $verifier);
     bytes32 initCodeHash = hashInitCode(type(ZuzaluOracle).creationCode, args);
     address oracle = computeCreate2Address(SALT, initCodeHash);
     console.log("Create2 Args");
-    console.log("> Owner:  ", owner);
+    console.log("> Owner:  ", $owner);
     console.log("> Verifier", $verifier);
     console.log("> Salt", vm.toString(SALT));
     console.log("Address");
