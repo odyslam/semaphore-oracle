@@ -12,47 +12,24 @@ contract Deploy is Script{
   address $verifier;
   address $owner;
 
-  function _getVerifierOrDeploy() internal {
-    if (block.chainid == 5 || block.chainid == 11155111 || block.chainid == 80001 || block.chainid == 10 || block.chainid == 421613){
-      $verifier = DEPLOYED_VERIFIER;
-      console.log("Verifier is already deployed at address", $verifier);
-    } else {
-      _deployVerifier();
-      console.log("Verifier deployed at address", $verifier);
-    }
+  constructor() {
+    uint256 $privateKey = vm.envUint("PRIVATE_KEY");
+    $owner = vm.addr($privateKey);
   }
+
+
 
   function run() public {
     _getVerifierOrDeploy();
-    $owner = msg.sender;
     _deployOracle();
   }
   
   function run(address _verifier) public {
-    $owner = msg.sender;
     $verifier = _verifier;
     _deployOracle();
   }
 
-  function _deployVerifier() internal {
-    vm.startBroadcast();
-    SemaphoreVerifier verifierContract = new SemaphoreVerifier();
-    $verifier = address(verifierContract);
-    vm.stopBroadcast();
-  }
-
-  function _deployOracle() internal {
-    vm.startBroadcast($owner);
-    ZuzaluOracle oracle = new ZuzaluOracle{salt: SALT}({
-      _owner: $owner,
-      _verifier: $verifier 
-    });
-    vm.stopBroadcast();
-    console.log("Oracle deployed at address", address(oracle));
-  }
-
   function printAddress(uint256 _chainId) public {
-    $owner = msg.sender;
     vm.chainId(_chainId);
     _getVerifierOrDeploy();
     bytes memory args = abi.encode($owner, $verifier);
@@ -65,4 +42,35 @@ contract Deploy is Script{
     console.log("Address");
     console.log("> Oracle: ", oracle);
   }
+
+
+
+  function _deployVerifier() internal {
+    vm.startBroadcast();
+    SemaphoreVerifier verifierContract = new SemaphoreVerifier();
+    $verifier = address(verifierContract);
+    vm.stopBroadcast();
+  }
+
+  function _getVerifierOrDeploy() internal {
+    if (block.chainid == 5 || block.chainid == 11155111 || block.chainid == 80001 || block.chainid == 10 || block.chainid == 421613){
+      $verifier = DEPLOYED_VERIFIER;
+      console.log("Verifier is already deployed at address", $verifier);
+    } else {
+      _deployVerifier();
+      console.log("Verifier deployed at address", $verifier);
+    }
+  }
+
+  function _deployOracle() internal {
+    vm.startBroadcast($owner);
+    ZuzaluOracle oracle = new ZuzaluOracle{salt: SALT}({
+      _owner: $owner,
+      _verifier: $verifier 
+    });
+    vm.stopBroadcast();
+    console.log("Oracle deployed at address", address(oracle));
+  }
+
+
 }
