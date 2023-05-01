@@ -15,6 +15,8 @@ The Zuzalu API offers the latest root for every group. A trusted backend cron se
 
 # Building with Zuzalu Oracle
 
+## Understand the Semaphore Protocol
+
 First, make sure you understand how the proof and group system works in Semaphore. 
 
 Check out [their docs](https://semaphore.appliedzkp.org/docs/guides/proofs)!
@@ -31,6 +33,8 @@ Check out [their docs](https://semaphore.appliedzkp.org/docs/guides/proofs)!
 
 ## How to integrate in Solidity
 
+Read the smart contract [docs](https://odyslam.github.io/zuzalu-oracle)!
+
 Install
 ```Bash
 yarn add zuzalu-oracle
@@ -42,7 +46,6 @@ uint[8] proof;
 // Use the latest root of group Residents
 oracle.verify(0, 0, 0, proof, ZuzaluOracle.Groups.Residents);
 ```
-You can read the docs for the smart contract in the [the docs](https://odyslam.github.io/zuzalu-oracle)!
 
 ## How to integrate in Typescript
 
