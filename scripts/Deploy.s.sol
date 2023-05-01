@@ -42,7 +42,7 @@ contract Deploy is Script{
   }
 
   function _deployOracle() internal {
-    vm.startBroadcast();
+    vm.startBroadcast($owner);
     ZuzaluOracle oracle = new ZuzaluOracle{salt: SALT}({
       _owner: $owner,
       _verifier: $verifier 
