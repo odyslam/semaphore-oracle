@@ -8,7 +8,7 @@ import {Owned} from "solmate/auth/Owned.sol";
 /// @author Mark Tyneway <mark.tyneway@gmail.com>
 /// @author Odysseas.eth <odyslam@gmail.com>
 contract ZuzaluOracle is Owned {
-    string internal constant VERSION = "0.0.1";
+    string internal constant VERSION = "0.0.2";
 
     /// The official groups by Zuzalu as defined and used in the backend
     enum Groups
